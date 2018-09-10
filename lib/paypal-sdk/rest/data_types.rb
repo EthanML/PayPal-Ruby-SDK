@@ -942,9 +942,10 @@ module PayPal::SDK
           success?
         end
 
-        def authorize()
+        def authorize(authorization)
+          authorization = Authorization.new(authorization) unless authorization.is_a? Authorization
           path = "v1/payments/orders/#{self.id}/authorize"
-          response = api.post(path, self.to_hash, http_header)
+          response = api.post(path, authorization.to_hash, http_header)
           Authorization.new(response)
         end
 
