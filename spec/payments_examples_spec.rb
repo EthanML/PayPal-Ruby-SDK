@@ -293,7 +293,12 @@ describe "Payments" do
       end
 
       it "Authorize", :disabled => true do
-        auth = order.authorize
+        auth = order.authorize({
+          "amount" => {
+            "currency" => "USD",
+            "total" => "1.00"
+          }
+        })
         expect(auth.state).to eq("Pending")
       end
 
